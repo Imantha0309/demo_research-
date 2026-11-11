@@ -1,0 +1,269 @@
+/* ==========================================================================
+   Space Monitoring System — dashboard and analytics layouts
+   ========================================================================== */
+
+/* ------------------------------- KPI cards -------------------------------- */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.kpi-card {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font);
+  color: var(--text);
+  cursor: pointer;
+  padding: 13px 14px 11px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--tone) 30%, var(--line)); }
+.kpi-card::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  right: -32px;
+  top: -38px;
+  border-radius: 50%;
+  background: var(--tone-soft);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.kpi-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; position: relative; z-index: 1; }
+.kpi-icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  color: var(--tone);
+  background: var(--tone-soft);
+}
+.kpi-label { font-size: 9.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin: 9px 0 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; z-index: 1; }
+.kpi-value { font-size: 24px; font-weight: 800; letter-spacing: -0.035em; line-height: 1.1; display: flex; align-items: baseline; gap: 3px; font-variant-numeric: tabular-nums; position: relative; z-index: 1; }
+.kpi-value small { font-size: 10px; font-weight: 600; color: var(--muted-2); letter-spacing: 0; }
+.kpi-desc { font-size: 9px; color: var(--muted-2); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; z-index: 1; }
+.kpi-foot { display: flex; align-items: center; gap: 5px; margin-top: 8px; position: relative; z-index: 1; }
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 8.5px;
+  font-weight: 700;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+  color: var(--green);
+  background: var(--green-soft);
+  font-variant-numeric: tabular-nums;
+}
+.trend.down { color: var(--red); background: var(--red-soft); }
+.trend.neutral { color: var(--muted); background: var(--bg); }
+.kpi-foot > span:last-child { font-size: 8.5px; color: var(--muted-2); }
+
+/* --------------------------------- Charts -------------------------------- */
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  min-width: 0;
+}
+.chart-card.span-3 { grid-column: span 3; }
+.chart-card.span-4 { grid-column: span 4; }
+.chart-card.span-5 { grid-column: span 5; }
+.chart-card.span-6 { grid-column: span 6; }
+.chart-card.span-7 { grid-column: span 7; }
+.chart-card.span-8 { grid-column: span 8; }
+.chart-card.span-12 { grid-column: span 12; }
+
+.chart-body { padding: 4px 15px 14px; position: relative; }
+.chart-wrap { position: relative; height: 225px; }
+.chart-wrap.short { height: 195px; }
+.chart-wrap.tall { height: 275px; }
+.chart-wrap canvas { max-width: 100%; }
+
+.chart-legend { display: flex; flex-wrap: wrap; gap: 10px; padding: 0 18px 13px; }
+.chart-legend span { display: inline-flex; align-items: center; gap: 5px; font-size: 9px; color: var(--muted); font-weight: 600; }
+.chart-legend i { width: 8px; height: 8px; border-radius: 3px; background: var(--tone); display: inline-block; }
+
+.chart-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted-2);
+  font-size: 11px;
+  text-align: center;
+  padding: 20px;
+}
+
+.chart-toolbar { display: flex; align-items: center; gap: 6px; }
+.chart-toolbar .form-select { min-height: 28px; height: 28px; font-size: 10px; padding: 3px 24px 3px 8px; width: auto; }
+.chart-download { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--line); background: var(--card); color: var(--muted); display: grid; place-items: center; font-size: 11px; }
+.chart-download:hover { color: var(--text); border-color: var(--line-strong); }
+
+/* ------------------------------ Activity feed ----------------------------- */
+
+.activity-panel { display: flex; flex-direction: column; }
+.activity-list { list-style: none; margin: 0; padding: 0 16px 14px; overflow-y: auto; max-height: 342px; }
+.activity-item {
+  display: flex;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  animation: fadeSlide 0.35s ease both;
+}
+.activity-item:last-child { border-bottom: 0; }
+.activity-icon {
+  width: 29px;
+  height: 29px;
+  flex: 0 0 29px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  color: var(--tone);
+  background: var(--tone-soft);
+}
+.activity-copy { flex: 1; min-width: 0; }
+.activity-copy strong { display: block; font-size: 10.8px; font-weight: 600; line-height: 1.35; }
+.activity-copy span { display: block; font-size: 9.5px; color: var(--muted); line-height: 1.4; margin-top: 1px; }
+.activity-time { font-size: 8.5px; color: var(--muted-2); white-space: nowrap; margin-top: 1px; }
+.activity-empty { padding: 40px 16px; text-align: center; color: var(--muted); font-size: 11px; }
+
+/* --------------------------- Facility overview ---------------------------- */
+
+.facility-overview {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+.fo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 13px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  text-align: left;
+  color: var(--text);
+  font-family: var(--font);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+}
+.fo-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--tone) 30%, var(--line)); }
+.fo-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.fo-icon { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; color: var(--tone); background: var(--tone-soft); font-size: 14px; }
+.fo-name { font-size: 11px; font-weight: 650; }
+.fo-pct { font-size: 20px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+.fo-pct small { font-size: 9px; font-weight: 600; color: var(--muted); }
+.fo-meta { font-size: 8.5px; color: var(--muted-2); display: flex; justify-content: space-between; gap: 6px; }
+.fo-card .status-badge { font-size: 8px; padding: 2px 6px; }
+
+/* -------------------------------- Analytics ------------------------------- */
+
+.analytics-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  padding: 11px 13px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 16px;
+}
+.analytics-toolbar .form-select { width: auto; min-width: 140px; min-height: 35px; height: 35px; font-size: 11.5px; padding-top: 5px; padding-bottom: 5px; }
+.analytics-toolbar .toolbar-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted-2); }
+.analytics-toolbar .toolbar-spacer { flex: 1; }
+
+.insight-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.insight-card {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 13px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow-soft);
+}
+.insight-icon { width: 34px; height: 34px; flex: 0 0 34px; border-radius: 9px; display: grid; place-items: center; color: var(--tone); background: var(--tone-soft); font-size: 15px; }
+.insight-copy { display: flex; flex-direction: column; line-height: 1.25; }
+.insight-copy strong { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; }
+.insight-copy span { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+
+.analytics-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 9.5px;
+  color: var(--muted-2);
+}
+
+/* ------------------------------- Responsive ------------------------------ */
+
+@media (max-width: 1500px) {
+  .kpi-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .facility-overview { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 1200px) {
+  .chart-card.span-3, .chart-card.span-4, .chart-card.span-5 { grid-column: span 6; }
+  .chart-card.span-7, .chart-card.span-8 { grid-column: span 12; }
+  .activity-list { max-height: 290px; }
+  .insight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .chart-card.span-3, .chart-card.span-4, .chart-card.span-5, .chart-card.span-6 { grid-column: span 12; }
+  .facility-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chart-wrap { height: 230px; }
+}
+
+@media (max-width: 600px) {
+  .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi-card:last-child { grid-column: span 2; }
+  .kpi-value { font-size: 21px; }
+  .facility-overview { grid-template-columns: 1fr 1fr; }
+  .insight-grid { grid-template-columns: 1fr 1fr; }
+  .chart-wrap { height: 210px; }
+  .analytics-toolbar .form-select { flex: 1; min-width: 110px; }
+  .analytics-toolbar .toolbar-spacer { display: none; }
+  .analytics-toolbar .btn { width: 100%; }
+}
+
+@media (max-width: 420px) {
+  .facility-overview { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .kpi-card:last-child { grid-column: auto; }
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" role="img" aria-label="Camera feed unavailable">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1d3a52" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1c2b"/>
+      <stop offset="1" stop-color="#0f2a3d"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="520" fill="url(#bg)"/>
+  <rect width="900" height="520" fill="url(#grid)" opacity=".55"/>
+  <g fill="none" stroke="#3c6b8a" stroke-width="3">
+    <circle cx="450" cy="245" r="58"/>
+    <path d="M412 245h76M450 207v76" stroke-width="2" opacity=".7"/>
+  </g>
+  <g fill="#7fa6c0" font-family="Segoe UI, Arial, sans-serif" text-anchor="middle">
+    <text x="450" y="345" font-size="26" font-weight="700" letter-spacing="2">SIGNAL UNAVAILABLE</text>
+    <text x="450" y="380" font-size="15" letter-spacing="1.5">DEMO CAMERA FEED · SIMULATED SYSTEM</text>
+  </g>
+  <g fill="#2b4d66">
+    <rect x="40" y="34" width="120" height="8" rx="4"/>
+    <rect x="40" y="52" width="70" height="8" rx="4"/>
+    <circle cx="844" cy="46" r="7"/>
+  </g>
+</svg>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Space Monitoring System — a frontend-only research prototype for hotel space monitoring. All data is simulated.">
+  <title>Space Monitoring System — Grand Horizon Hotel</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/how-it-works.css">
+</head>
+<body>
+  <!-- ============================== SIDEBAR ============================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="bi bi-buildings"></i></div>
+      <div class="brand-text">
+        <strong>Space Monitoring</strong>
+        <span>System</span>
+      </div>
+      <button class="sidebar-close d-lg-none" id="sidebarClose" type="button" aria-label="Close navigation">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="sidebar-hotel">
+      <span class="status-dot tone-green"></span>
+      <span class="js-hotel-name">Grand Horizon Hotel</span>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+      <span class="nav-label">Overview</span>
+      <a href="#/dashboard" data-route="dashboard" class="nav-link">
+        <i class="bi bi-grid-1x2"></i><span>Dashboard</span>
+      </a>
+      <a href="#/how-it-works" data-route="how-it-works" class="nav-link">
+        <i class="bi bi-diagram-3"></i><span>How It Works</span><em class="nav-pill">Demo</em>
+      </a>
+
+      <span class="nav-label">Live monitoring</span>
+      <a href="#/rooms" data-route="rooms" class="nav-link">
+        <i class="bi bi-door-open"></i><span>Room Monitoring</span>
+      </a>
+      <a href="#/restaurant" data-route="restaurant" class="nav-link">
+        <i class="bi bi-cup-hot"></i><span>Restaurant</span>
+      </a>
+      <a href="#/parking" data-route="parking" class="nav-link">
+        <i class="bi bi-p-square"></i><span>Parking</span>
+      </a>
+      <a href="#/facilities" data-route="facilities" class="nav-link">
+        <i class="bi bi-building"></i><span>Facilities</span>
+      </a>
+      <a href="#/cameras" data-route="cameras" class="nav-link">
+        <i class="bi bi-camera-video"></i><span>Live Camera View</span>
+      </a>
+
+      <span class="nav-label">Operations</span>
+      <a href="#/alerts" data-route="alerts" class="nav-link">
+        <i class="bi bi-bell"></i><span>Alerts &amp; Notifications</span>
+        <span class="nav-count js-nav-alerts">3</span>
+      </a>
+      <a href="#/analytics" data-route="analytics" class="nav-link">
+        <i class="bi bi-bar-chart-line"></i><span>Analytics &amp; Reports</span>
+      </a>
+      <a href="#/settings" data-route="settings" class="nav-link">
+        <i class="bi bi-gear"></i><span>Settings</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="sim-mini">
+        <span class="live-dot"></span>
+        <div>
+          <strong id="sidebarSimState">Simulation running</strong>
+          <small id="sidebarSimMeta">Demo data · 7s cycle</small>
+        </div>
+      </div>
+      <div class="version">Research prototype · v1.0</div>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- ============================== MAIN ============================== -->
+  <div class="app-main">
+    <header class="topbar">
+      <button class="icon-btn sidebar-toggle" id="sidebarToggle" type="button" aria-label="Open navigation">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="topbar-hotel">
+        <span class="hotel-kicker">Hotel operations</span>
+        <strong class="js-hotel-name">Grand Horizon Hotel</strong>
+      </div>
+
+      <div class="global-search" id="globalSearchWrap">
+        <i class="bi bi-search" aria-hidden="true"></i>
+        <input id="globalSearch" type="search" placeholder="Search rooms, tables, parking, facilities…" autocomplete="off" aria-label="Global search">
+        <kbd>Ctrl K</kbd>
+        <div class="search-results d-none" id="searchResults"></div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="sys-status" id="sysStatus" type="button" title="View simulated system status">
+          <span class="status-dot tone-green"></span>
+          <span>Systems operational</span>
+        </button>
+
+        <div class="topbar-clock">
+          <strong id="clockTime">--:--:--</strong>
+          <span id="clockDate">—</span>
+        </div>
+
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+          <i class="bi bi-moon-stars"></i>
+        </button>
+
+        <div class="dropdown">
+          <button class="icon-btn" id="bellBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
+            <i class="bi bi-bell"></i>
+            <span class="badge-count" id="bellCount">3</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-end notification-menu" id="notificationMenu">
+            <div class="notification-head">
+              <strong>Notifications</strong>
+              <button type="button" class="link-btn" id="markAllRead">Mark all read</button>
+            </div>
+            <div class="notification-list" id="notificationList"></div>
+            <a class="notification-foot" href="#/alerts">View all alerts <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <button class="profile-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="avatar">AM</span>
+            <span class="profile-meta">
+              <strong>Alex Morgan</strong>
+              <small>Operations Manager</small>
+            </span>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end profile-menu">
+            <li class="profile-menu-head">
+              <span class="avatar">AM</span>
+              <div><strong>Alex Morgan</strong><small>Demo operator account</small></div>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#/settings"><i class="bi bi-sliders"></i> Preferences</a></li>
+            <li><a class="dropdown-item" href="#/how-it-works"><i class="bi bi-diagram-3"></i> Demo guide</a></li>
+            <li><button class="dropdown-item" type="button" id="profileReset"><i class="bi bi-arrow-counterclockwise"></i> Reset demo data</button></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Global simulation disclaimer + controls -->
+    <div class="demo-strip">
+      <div class="demo-strip-left">
+        <span class="demo-badge"><span class="live-dot"></span> SIMULATED LIVE DATA</span>
+        <span class="demo-text">Not connected to real CCTV, sensors or IoT. Figures are generated for this research demonstration.</span>
+      </div>
+      <div class="demo-controls">
+        <span class="sim-speed" id="simSpeedLabel">7s cycle</span>
+        <button class="btn btn-sm btn-navy" id="simToggle" type="button">
+          <i class="bi bi-pause-fill"></i> Pause
+        </button>
+        <button class="btn btn-sm btn-outline-navy" id="simReset" type="button">
+          <i class="bi bi-arrow-clockwise"></i> Reset
+        </button>
+      </div>
+    </div>
+
+    <main id="view-root" class="view-root" tabindex="-1"></main>
+
+    <footer class="app-footer">
+      <span>Space Monitoring System · University research prototype</span>
+      <span>All monitoring data, detections and camera feeds are simulated.</span>
+    </footer>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/simulation.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/rooms.js"></script>
+  <script src="js/restaurant.js"></script>
+  <script src="js/parking.js"></script>
+  <script src="js/facilities.js"></script>
+  <script src="js/cameras.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/how-it-works.js"></script>
+</body>
+</html>
