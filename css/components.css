@@ -954,12 +954,26 @@
   .page-stat-strip, .alert-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .parking-lot { grid-template-columns: 1fr; }
   .parking-aisle { display: none; }
+  .filter-search input { height: 40px; font-size: 12px; }
+  .filter-bar .form-select { min-height: 40px; height: 40px; }
+  .filter-clear { width: 40px; height: 40px; flex: 0 0 40px; }
+  .btn { min-height: 40px; }
+  .btn-sm { min-height: 36px; }
+  .status-chip { min-height: 36px; padding: 7px 11px; }
+  .status-action { min-height: 40px; }
+  .alert-actions .btn { min-height: 36px; }
 }
 
 @media (max-width: 768px) {
   .filter-bar { gap: 7px; }
   .filter-search { max-width: none; flex-basis: 100%; }
-  .filter-bar .form-select { flex: 1; min-width: 110px; }
+  .filter-search input { height: 40px; font-size: 12px; }
+  .filter-bar .form-select { flex: 1; min-width: 110px; min-height: 40px; height: 40px; }
+  .filter-clear { width: 40px; height: 40px; flex: 0 0 40px; }
+  .btn { min-height: 40px; }
+  .btn-sm { min-height: 36px; }
+  .status-chip { min-height: 36px; padding: 7px 11px; }
+  .status-action { min-height: 40px; }
   .filter-summary { margin-left: 0; width: 100%; text-align: right; }
   .rooms-grid { grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); }
   .zone-window .plan-grid, .zone-main .plan-grid, .zone-terrace .plan-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -968,12 +982,17 @@
   .facility-grid { grid-template-columns: 1fr; }
   .alert-card { flex-wrap: wrap; }
   .alert-actions { width: 100%; padding-left: 49px; }
+  .alert-actions .btn { min-height: 36px; }
   .detail-grid { grid-template-columns: 1fr; }
   .theme-cards { grid-template-columns: 1fr; }
+  .hsm-modal .modal-dialog { margin: 8px; }
+  .hsm-modal .modal-header { padding: 14px 16px 11px; }
+  .hsm-modal .modal-body { padding: 14px 16px; }
+  .hsm-modal .modal-footer { padding: 11px 16px; flex-wrap: wrap; }
 }
 
 @media (max-width: 520px) {
-  .page-stat-strip, .alert-stats { grid-template-columns: 1fr; }
+  .page-stat-strip, .alert-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .zone-window .plan-grid, .zone-main .plan-grid, .zone-terrace .plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .table-node { width: 76px; height: 76px; }
@@ -984,4 +1003,11 @@
   .setting-control { width: 100%; }
   .form-range { width: 100%; flex: 1; }
   .camera-stat { flex: 1; }
+  .hsm-modal .modal-title { font-size: 15px; }
+  .hsm-modal .modal-sub { font-size: 10px; }
+}
+
+@media (max-width: 360px) {
+  .filter-bar .form-select { min-width: 100%; }
+  .filter-clear { width: 100%; flex-basis: 100%; }
 }

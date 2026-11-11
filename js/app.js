@@ -139,7 +139,7 @@
         ? '<div class="modal-footer">' + opts.footer + "</div>"
         : "";
       el.innerHTML =
-        '<div class="modal-dialog modal-dialog-centered ' + (opts.size || "modal-lg") + '">' +
+        '<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable ' + (opts.size || "modal-lg") + '">' +
           '<div class="modal-content">' +
             '<div class="modal-header">' +
               '<div><h2 class="modal-title">' + opts.title + "</h2>" +

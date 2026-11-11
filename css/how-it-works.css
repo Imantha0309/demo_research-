@@ -743,18 +743,23 @@
   .monitor-panel { max-width: 560px; }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .cctv-panel { padding: 10px; }
   .cctv-hud { font-size: 7.5px; letter-spacing: 0.08em; }
   .hud-cam, .hud-rec, .hud-demo { padding: 3px 5px; }
   .hud-cam i { font-size: 9px; }
   .hud-bottom { font-size: 7.5px; }
-  .cctv-controls { gap: 5px; padding-top: 9px; }
-  .ctr-btn { padding: 5px 8px; font-size: 9.5px; }
-  .ctr-btn i { font-size: 10px; }
+  .cctv-controls { gap: 6px; padding-top: 9px; }
+  .ctr-btn { min-height: 40px; padding: 8px 10px; font-size: 10px; }
+  .ctr-btn i { font-size: 13px; }
   .cctv-control-spacer { display: none; }
-  .cctv-link { margin-left: auto; }
-  .cctv-caption { font-size: 9px; }
+  .cctv-link { margin-left: auto; min-height: 40px; }
+  .cctv-caption { font-size: 10px; line-height: 1.6; }
+  .scan-banner { font-size: 9px; padding: 7px 12px; }
+  .monitor-screen { padding: 11px; }
+  .console-stat strong { font-size: 18px; }
+  .track-id, .track-conf { font-size: 9px; }
+  .log-row { font-size: 8.5px; grid-template-columns: 44px minmax(0, 1fr); }
   .pipeline-grid { grid-template-columns: minmax(0, 1fr); }
   .ethics-note { padding: 15px; gap: 11px; }
   .monitor-panel { max-width: none; }
